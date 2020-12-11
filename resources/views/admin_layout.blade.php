@@ -42,11 +42,11 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
-          <span>Danh mục sản phẩm</span>
+          <span>Products</span>
         </a>
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Danh mục sản phẩm</h6>
+            <h6 class="collapse-header">List Products</h6>
             <a class="collapse-item" href="{{URL::to('add-category-product')}}">Thêm danh mục</a>
             <a class="collapse-item" href="{{URL::to('all-category-product')}}">Liệt kê danh mục</a>
             <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
@@ -60,27 +60,27 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
           aria-controls="collapseForm">
           <i class="fab fa-fw fa-wpforms"></i>
-          <span>Forms</span>
+          <span>Articles</span>
         </a>
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="form_basics.html">Form Basics</a>
-            <a class="collapse-item" href="form_advanceds.html">Form Advanceds</a>
+            <h6 class="collapse-header">List Articles</h6>
+            <a class="collapse-item" href="{{URL::to('/articles')}}">List Articles</a>
+            {{-- <a class="collapse-item" href="form_advanceds.html">Form Advanceds</a> --}}
           </div>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span>
+          <i class="fas fa-fw fa-user"></i>
+          <span>Users</span>
         </a>
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Tables</h6>
-            <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-            <a class="collapse-item" href="datatables.html">DataTables</a>
+            <h6 class="collapse-header">List Users</h6>
+            <a class="collapse-item" href="{{URL::to('/users')}}">List Users</a>
+            {{-- <a class="collapse-item" href="datatables.html">DataTables</a> --}}
           </div>
         </div>
       </li>
@@ -91,7 +91,7 @@
         </a>
       </li>
       <hr class="sidebar-divider">
-      <div class="sidebar-heading">
+      {{-- <div class="sidebar-heading">
         Users
       </div>
       <li class="nav-item">
@@ -117,6 +117,33 @@
         </a>
       </li>
       <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Articles
+      </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
+          aria-controls="collapsePage">
+          <i class="fas fa-fw fa-columns"></i>
+          <span>List Articles</span>
+        </a>
+        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Danh sách user</h6>
+            <a class="collapse-item" href="{{URL::to('add-category-user')}}">Thêm user</a>
+            <a class="collapse-item" href="{{URL::to('/users')}}">Liệt kê user</a>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider"> --}}
       
     </ul>
     <!-- Sidebar -->
@@ -389,6 +416,7 @@
        $('#dataTableHover').DataTable(); // ID From dataTable with Hover
      });
    </script>
+   @yield('js')
 </body>
 
 </html>

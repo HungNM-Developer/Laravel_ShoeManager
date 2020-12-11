@@ -28,6 +28,15 @@
                 <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
 
                     <h6 class="m-0 font-weight-bold text-light">Profile</h6>
+                    <div class="m-1">
+                        <a href="{{ $user->id }}/edit" class="btn btn-light btn-icon btn"
+                            role="button">
+                            <span class="icon">
+                                <i class="fas fa-user-edit"></i>
+                            </span>
+                            Edit
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
 
@@ -38,9 +47,11 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Avatar</label>
                                     <div class="card">
-                                        <img class="card-img-top"
-                                            src="{{ URL::to('public/uploads/users/' . $profile->avatar) }}"
-                                            alt="Card image cap">
+                                        <img class="card-img-top" src="{{URL::to($profile->avatar)}}"/> 
+                                        {{-- <div style="background-image: url({{$profile->avatar}}), width: 150px"></div> --}}
+                                        {{-- <img class="card-img-top"
+                                            src="{{ $profile->avatar }}"
+                                            alt="Card image cap"> --}}
                                         <div class="card-body">
                                             <div class="row text-center">
                                                 <div class="col">
@@ -68,6 +79,8 @@
                                                     <h5 class="text-center font-weight-bold">700</h5>
                                                 </div>
                                             </div>
+                                            
+                                            
                                             {{-- <h5 class="card-title">
                                                 {{ $profile->full_name }}</h5>
                                             <p class="card-text">Some quick example text to build on the card title and make
@@ -105,12 +118,10 @@
                                     <input type="text" name="category_user_phone" class="form-control"
                                         id="exampleInputPassword1" placeholder="{{ $profile->phone }}" disabled>
                                 </div>
+                                
                             </div>
-
-
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

@@ -8,6 +8,10 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\ProfileController;
 
+use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\ArticleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +49,7 @@ Route::resource('users', UserController::class);
 Route::resource('profiles', ProfileController::class);
 
 Route::get('profile/check/{id}',[ProfileController::class,'checkAvaProfile']);
+
+Route::resource('products', ProductController::class);
+
+Route::resource('articles', ArticleController::class);

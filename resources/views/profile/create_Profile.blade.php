@@ -1,4 +1,14 @@
 @extends('admin_layout')
+@section('js')
+<script>
+    $('#avatar').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
+</script>
+@endsection
 @section('admin_content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Thêm user</h1>
@@ -30,7 +40,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">User Id</label>
                                     <input type="text" name="profile_user_id" class="form-control" 
-                                        id="exampleInputPassword1" placeholder="Nhập user id">
+                                        id="exampleInputPassword1" placeholder="nhaapj">
                                 </div>
                                 
                                 <div class="form-group">
@@ -55,13 +65,16 @@
                                 </div>
                                 
                             </div>
+                            
                             <div class="col-lg-4 mb-4">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Avatar</label>
                                     <div class="custom-file">
-                                        <input type="file" name="profile_avatar" class="custom-file-input" id="customFile">
+                                        {{-- <input type="file" name="profile_avatar" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label> --}}
+                                        <input type="file" class="custom-file-input " id="avatar" name="avatar" >
                                         <label class="custom-file-label" for="customFile">Choose file</label>
-                                        
+                                        {{-- <label for="avatar" class="custom-file-label">{{$profile->avatar}}</label> --}}
                                     </div>
                                 </div>
                                 <br>
@@ -78,4 +91,4 @@
                 </div>
             </div>
         </div>
-    @endsection
+@endsection
