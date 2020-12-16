@@ -18,7 +18,7 @@ class ArticleController extends Controller
     public function index()
     {
         //
-        $articles = Article::all();
+        $articles = Article::orderBy('id','DESC')->get();
 		return View('article.list',['articles' => $articles]);
     }
 
@@ -52,9 +52,10 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
-        $user =  DB::table('users')->where('id', $id)->first();
-        $article = DB::table('articles')->where('id', $id)->first();
-        return view('article.show_Article', ['article' => $article],['user' => $user]);
+        $article = Article::find($id);
+        // $user =  DB::table('users')->where('id', $id)->first();
+        // $article = DB::table('articles')->where('id', $id)->first();
+        return view('article.show_Article', ['article' => $article]);
 
     }
 
@@ -67,6 +68,13 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        $article = Article::find($id);
+        return view('article.edit_Article', ['article' => $article]);
+        // $tag = DB::table('tags')->where('id', $id)->first();
+        // $user =  DB::table('users')->where('id', $id)->first();
+        // $article =  DB::table('articles')->where('id', $id)->first();
+        // return View('article.edit_Article', ['article' => $article],['user' => $user],['tag' => $tag]);
+        
     }
 
     /**
@@ -79,6 +87,16 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $article = Article::find($id);
+        $article->title = $request->input('article_title');
+        $article->status = $request->input('article_status');
+        // $article->created_at = $request->input('article_created_at');
+        // $article->updated_at = $request->input('article_updated_at');
+        $article->body = $request->input('article_body');
+        $article->tags->tag = $request->input('tag->tag');
+        $article->save();
+        return back() //trả về trang trước đó
+            ->with('success', 'Article has updated.');
     }
 
     /**

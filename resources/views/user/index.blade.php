@@ -77,7 +77,7 @@
                                         <a href="profiles/{{ $user->id }}/edit" class="btn btn-success btn-icon btn-sm"
                                             role="button">
                                             <span class="icon">
-                                                <i class="fas fa-user-edit"></i>
+                                                <i class="fas fa-edit"></i>
                                             </span>
                                             Edit
                                         </a>

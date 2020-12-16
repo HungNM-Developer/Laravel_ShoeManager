@@ -12,6 +12,10 @@ use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\ArticleController;
 
+use App\Http\Controllers\TagController;
+
+use App\Http\Controllers\OrderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,3 +57,7 @@ Route::get('profile/check/{id}',[ProfileController::class,'checkAvaProfile']);
 Route::resource('products', ProductController::class);
 
 Route::resource('articles', ArticleController::class);
+
+Route::resource('orders', OrderController::class);
+
+Route::resource('tags', TagController::class);

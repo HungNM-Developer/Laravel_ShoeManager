@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArticleFactory extends Factory
@@ -24,6 +25,7 @@ class ArticleFactory extends Factory
     {
         return [
             'user_id' => User::all()->random()->id,//lấy danh sách user rồi chọn ngẫu nhiên id để thêm vào bảng articles
+            // 'tag_id' => Tag::all() -> random()->id,
             'title' => $this->faker->sentence,
             'body' => $this->faker->paragraph(random_int(3, 5)),
             'status' => $this->faker->word,

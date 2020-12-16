@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">User Id</label>
                                     <input type="text" name="profile_user_id" class="form-control" 
-                                        id="exampleInputPassword1" placeholder="nhaapj">
+                                        id="exampleInputPassword1" placeholder="Enter Id">
                                 </div>
                                 
                                 <div class="form-group">

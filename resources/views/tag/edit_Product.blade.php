@@ -12,7 +12,7 @@
 @endsection
 @section('admin_content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Cập nhật danh mục</h1>
+        <h1 class="h3 mb-0 text-gray-800">Cập nhật đơn hàng</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="./">Home</a></li>
             <li class="breadcrumb-item">Product category</li>
@@ -47,82 +47,85 @@
         <div class="col-lg-12 mb-4">
             <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Cập nhật user</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Cập nhật đơn hàng</h6>
                 </div>
 
                 {{-- @foreach ($edit_category_user as $key => $edit_value_user) --}}
                     <div class="card-body">
-                        <form class="user" action="{{ route('profiles.update', ['profile' => $profile->id]) }}"
+                        <form class="user" action="{{ route('tags.update', ['tag' => $tag->id]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <!-- khai báo này dùng để thiết lập phương thức PUT 
-                                                    nếu không khai báo thì khi submit không thiết lập HttpPUT -->
+                                                        nếu không khai báo thì khi submit không thiết lập HttpPUT -->
                             <div class="row">
                                 <div class="col-lg-4 mb-4"></div>
                                 <div class="col-lg-8 mb-4"></div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">User id</label>
-                                <input type="text" name="profile_user_id" class="form-control form-control-user"
-                                    id="profile_full_name" placeholder="Full Name" value="{{ $profile->user_id }}" disabled>
+                                <label for="exampleInputEmail1">Product Id</label>
+                                <input type="text" name="product_id" class="form-control form-control-user"
+                                    id="profile_full_name" placeholder="" value="{{ $tag->id }}" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Full name</label>
-                                <input type="text" name="profile_full_name" class="form-control form-control-user"
-                                    id="profile_full_name" placeholder="Full Name" value="{{ $profile->full_name }}">
+                                <label for="exampleInputEmail1">Product Name</label>
+                                <input type="text" name="product_name" class="form-control form-control-user"
+                                    id="profile_full_name" placeholder="" value="{{ $tag->tag }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Address</label>
-                                <input type="text" name="profile_address" class="form-control form-control-user"
-                                    id="profile_address" placeholder="Address" value="{{ $profile->address }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Phone</label>
-                                <input type="text" name="profile_phone" class="form-control form-control-user"
-                                    id="profile_phone" placeholder="Phone" value="{{ $profile->phone }}">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label for="exampleInputEmail1">Birthday</label>
-                                    <input type="date" class="form-control form-control-user" name="profile_birthday"
-                                        id="profile_birthday" placeholder="Birthday" value="{{ $profile->birthday }}">
+                                <label for="exampleInputEmail1">Product Price</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" name="product_price" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                    placeholder="Enter price" value="{{ $tag->price }}"/>
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">.00</span>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Avatar</label><br>
+                                <label for="exampleInputPassword1">Product Description </label>
+                                <div class="input-group mb-3">
+                                    <textarea class="form-control" placeholder="Enter description"
+                                    name="product_description"
+                                    aria-label="With textarea">{{ $tag->description }}</textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Product Content</label>
+                                <div class="input-group mb-3">               
+                                    <textarea class="form-control" placeholder="Enter Content"
+                                    name="product_content"
+                                    rows="4" aria-label="With textarea">{{ $tag->content }}</textarea>
+                                </div>
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Product Image</label><br>
                                 
                                 <div class="card col-sm-4">
-                                    <img class="card-img-top" src="{{ URL::to($profile->avatar) }}" alt="Card image cap">
+                                    <img class="card-img-top" src="{{ URL::to($tag->image) }}" alt="Card image cap">
                                 </div><br>
                                 <div class="col-sm-8 mb-4 mb-sm-0">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input " id="avatar" name="avatar">
-                                        <label for="avatar" class="custom-file-label">{{ $profile->avatar }}</label>
+                                        <input type="file" class="custom-file-input " id="avatar" 
+                                        name="product_image">
+                                        <label for="avatar" class="custom-file-label">{{ $tag->image }}</label>
                                     </div>
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn btn-primary"> Update Profile</button>
-                            
-                        </form><br>
-                        {{-- <button class="btn btn-primary" href="{{ URL::to('/users') }}">
-                            Cập nhật user
-                        </button> --}}
-                        <form action="/ShoeManager/profiles/{{ $user->id }}">
-                            
-                            <button type="submit" class="btn btn-light">
-                                <span class="icon">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span> Back
+
+                            <button type="submit" class="btn btn-primary"> Update Product
                             </button>
-                        </form>
-                        {{-- <a href="" class="btn btn-light btn-icon btn" role="button">
-                            <span class="icon">
-                                <i class="fas fa-user-edit"></i>
-                            </span>
-                            Back
-                        </a> --}}
+
+                        </form><br>
+
 
 
                     </div>

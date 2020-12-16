@@ -2,17 +2,20 @@
 
 namespace Database\Factories;
 
-use App\Models\Tag;
+use App\Models\Tag_Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TagFactory extends Factory
+use App\Models\Order;
+use App\Models\Tag;
+
+class Tag_OrderFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Tag::class;
+    protected $model = Tag_Order::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +25,10 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            'tag' => $this->faker->word, 
-            'price' => $this->faker->numberBetween(1, 1000),
-            'description' => $this->faker->word,
-            'content' => $this->faker->word,
+            //
+            'order_id' => Order::all()->random()->id, 
+            'tag_id' => Tag::all()->random()->id,
+            'quantity' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

@@ -13,7 +13,14 @@
   <link href="{{asset('public/backend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('public/backend/css/ruang-admin.min.css')}}" rel="stylesheet">
   <link href="{{asset('public/backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-  
+  <!-- Select2 -->
+  <link href="{{asset('public/backend/vendor/select2/dist/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+  <!-- Bootstrap DatePicker -->  
+  <link href="{{asset('public/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet" >
+  <!-- ClockPicker -->
+  <link href="{{asset('public/backend/vendor/clock-picker/clockpicker.css')}}" rel="stylesheet">
+<!-- Bootstrap Touchspin -->
+<link href="{{asset('public/backend/vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css')}}" rel="stylesheet" >
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
@@ -47,15 +54,12 @@
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">List Products</h6>
-            <a class="collapse-item" href="{{URL::to('add-category-product')}}">Thêm danh mục</a>
-            <a class="collapse-item" href="{{URL::to('all-category-product')}}">Liệt kê danh mục</a>
-            <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
-            <a class="collapse-item" href="modals.html">Modals</a>
-            <a class="collapse-item" href="popovers.html">Popovers</a>
-            <a class="collapse-item" href="progress-bar.html">Progress Bars</a>
+            <a class="collapse-item" href="{{URL::to('/tags')}}">List Products</a>
+            
           </div>
         </div>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
           aria-controls="collapseForm">
@@ -70,6 +74,21 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fab fa-fw fa-wpforms"></i>
+          <span>Orders</span>
+        </a>
+        <div id="collapseOrder" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">List Orders</h6>
+            <a class="collapse-item" href="{{URL::to('/orders')}}">List Orders</a>
+            {{-- <a class="collapse-item" href="datatables.html">DataTables</a> --}}
+          </div>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
@@ -405,6 +424,14 @@
   <script src="{{asset('public/backend/vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('public/backend/js/demo/chart-area-demo.js')}}"></script>  
 
+  <script src="{{asset('public/backend/vendor/select2/dist/js/select2.min.js')}}"></script>
+  <!-- Bootstrap Datepicker -->
+  <script src="{{asset('public/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+  <!-- Bootstrap Touchspin -->
+  <script src="{{asset('public/backend/vendor/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js')}}"></script>
+  <!-- ClockPicker -->
+  <script src="{{asset('public/backend/vendor/clock-picker/clockpicker.js')}}"></script>
+
    <!-- Page level plugins -->
    <script src="{{asset('public/backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
    <script src="{{asset('public/backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
@@ -414,7 +441,67 @@
      $(document).ready(function () {
        $('#dataTable').DataTable(); // ID From dataTable 
        $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+       $('.select2-single').select2();
+
+      // Select2 Single  with Placeholder
+      $('.select2-single-placeholder').select2({
+        placeholder: "Select a Province",
+        allowClear: true
+      });      
+
+      // Select2 Multiple
+      $('.select2-multiple').select2();
      });
+
+     $('#simple-date1 .input-group.date').datepicker({
+        format: 'dd/mm/yyyy',
+        todayBtn: 'linked',
+        todayHighlight: true,
+        autoclose: true,        
+      });
+
+      $('#simple-date2 .input-group.date').datepicker({
+        startView: 1,
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });
+
+      $('#simple-date3 .input-group.date').datepicker({
+        startView: 2,
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });
+
+      $('#simple-date4 .input-daterange').datepicker({        
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });
+
+      $('#clockPicker1').clockpicker({
+        donetext: 'Done'
+      });
+
+      $('#clockPicker2').clockpicker({
+        autoclose: true
+      });
+
+      let input = $('#clockPicker3').clockpicker({
+        autoclose: true,
+        'default': 'now',
+        placement: 'top',
+        align: 'left',
+      });
+
+      $('#check-minutes').click(function(e){        
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+      });
    </script>
    @yield('js')
 </body>

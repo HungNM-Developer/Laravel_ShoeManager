@@ -1,18 +1,7 @@
-{{-- @extends('admin_layout')
-@section('admin_content')
-
-<p>user id: {{ $profile->user_id }}</p>
-<p>họ tên: {{ $profile->full_name }}</p>
-<p>Địa chỉ: {{ $profile->address }}</p>
-<p>Ngày sinh: {{ $profile->birthday }}</p>
-
-
-@endsection --}}
-
 @extends('admin_layout')
 @section('admin_content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Profile - {{ $profile->full_name }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Product - {{ $tag->id }}</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="./">Home</a></li>
             <li class="breadcrumb-item">Product category</li>
@@ -27,14 +16,14 @@
             <div class="card mb-4">
                 <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
 
-                    <h6 class="m-0 font-weight-bold text-light">Profile</h6>
+                    <h6 class="m-0 font-weight-bold text-light">Product</h6>
                     <div class="m-1">
-                        <a href="{{ $user->id }}/edit" class="btn btn-light btn-icon btn"
+                        <a href="{{ $tag->id }}/edit" class="btn btn-light btn-icon btn"
                             role="button">
                             <span class="icon">
-                                <i class="fas fa-user-edit"></i>
+                                <i class="fas fa-edit"></i>
                             </span>
-                            Edit Profile
+                            Edit Product
                         </a>
                     </div>
                 </div>
@@ -45,9 +34,9 @@
                         <div class="row">
                             <div class="col-lg-4 mb-4">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Avatar</label>
+                                    <label for="exampleInputPassword1">Image</label>
                                     <div class="card">
-                                        <img class="card-img-top" src="{{URL::to($profile->avatar)}}"/> 
+                                        <img class="card-img-top" src="{{URL::to($tag->image)}}"/> 
                                         {{-- <div style="background-image: url({{$profile->avatar}}), width: 150px"></div> --}}
                                         {{-- <img class="card-img-top"
                                             src="{{ $profile->avatar }}"
@@ -94,29 +83,47 @@
 
                             <div class="col-lg-8 mb-4">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">User Id</label>
+                                    <label for="exampleInputPassword1">Product Id</label>
                                     <input type="text" name="category_user_id" class="form-control"
-                                        id="exampleInputPassword1" placeholder="{{ $profile->user_id }}" disabled>
+                                        id="exampleInputPassword1" placeholder="{{ $tag->id }}" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Full name</label>
+                                    <label for="exampleInputPassword1">Name Product</label>
                                     <input type="text" name="category_user_name" class="form-control"
-                                        id="exampleInputPassword1" placeholder="{{ $profile->full_name }}" disabled>
+                                        id="exampleInputPassword1" placeholder="{{ $tag->tag }}" disabled>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Price Product</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text">$</span>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                        placeholder="{{ $tag->price }}" disabled>
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Product Description </label>
+                                    <div class="input-group mb-3">
+                                        
+                                        <textarea class="form-control" placeholder="{{ $tag->description }}" disabled
+                                        aria-label="With textarea"></textarea>
+                                    </div>
+                                    
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Address</label>
-                                    <input type="text" name="category_user_name" class="form-control"
-                                        id="exampleInputPassword1" placeholder="{{ $profile->address }}" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Birthday</label>
-                                    <input type="text" name="category_user_name" class="form-control"
-                                        id="exampleInputPassword1" placeholder="{{ $profile->birthday }}" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Phone</label>
-                                    <input type="text" name="category_user_phone" class="form-control"
-                                        id="exampleInputPassword1" placeholder="{{ $profile->phone }}" disabled>
+                                    <label for="exampleInputPassword1">Product Content</label>
+                                    <div class="input-group mb-3">
+                                        
+                                        <textarea class="form-control" placeholder="{{ $tag->content }}" disabled
+                                        rows="4" aria-label="With textarea"></textarea>
+                                    </div>
+                                    
                                 </div>
                                 
                             </div>

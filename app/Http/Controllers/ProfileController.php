@@ -8,6 +8,7 @@ use App\Models\Profile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -52,7 +53,9 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //
+        
         if ($request->file()) {
+            
             $profile = new Profile();
             $profile->user_id = $request->input('profile_user_id');
             $profile->full_name = $request->input('profile_full_name');
@@ -79,35 +82,7 @@ class ProfileController extends Controller
             return redirect('/users');
         }
 
-        // $profile->avatar = $request->input('profile_avatar');
-        // $get_image = $request->file('profile_avatar');
-        // if ($get_image) {
-        //     $get_name_image = $get_image->getClientOriginalName();
-        //     $name_image = current(explode('.', $get_name_image));
-        //     $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-        //     $get_image->move('/storage/app/public/', $new_image);
-        //     $profile->avatar = $new_image;
-        //     DB::table('profiles')
-        //         ->insert([
-        //             'user_id' =>  $profile->user_id,
-        //             'full_name' =>  $profile->full_name,
-        //             'address' =>  $profile->address,
-        //             'phone' => $profile->phone,
-        //             'birthday' =>  $profile->birthday,
-        //             'avatar' => $new_image
-        //         ]);
-        //     Session::put('message', 'Thêm profile thành công');
-        //     return redirect('/users');
-        // }
-        // $affected = DB::table('profiles')
-        //     ->insert([
-        //         'user_id' =>  $profile->user_id,
-        //         'full_name' =>  $profile->full_name,
-        //         'address' =>  $profile->address,
-        //         'phone' => $profile->phone,
-        //         'birthday' =>  $profile->birthday,
-        //         'avatar' => ''
-        //     ]);
+        
         Session::put('message', 'Thêm profile thành công');
         return redirect('/users');
     }
@@ -151,8 +126,9 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
+        $user =  DB::table('users')->where('id', $id)->first();
         if ($profile =  DB::table('profiles')->where('user_id', $id)->first()) {
-            return View('profile.edit_Profile', ['profile' => $profile]);
+            return View('profile.edit_Profile', ['profile' => $profile],['user' => $user]);
         } else {
             return View('profile.create_Profile');
         }
@@ -169,11 +145,11 @@ class ProfileController extends Controller
     {
         // $profile = DB::table('profiles')->find($id);
         // $profile = new Profile();
-
-        if ($validate = $request->validate([
-            'full_name' => ['required', 'unique:posts', 'max:255'],
-            'address' => 'required',
-            'phone' => 'required',
+        $user =  DB::table('users')->where('id', $id)->first();
+        if ( $validated = $request->validate([
+            'full_name' => 'nullable',
+            'address' => 'nullable',
+            'phone' => 'nullable',
             'birthday' => 'nullable|date',
             'avatar' => 'nullable|mimes:jpg,jpeg,png,xlx,xls,pdf|max:2048',
         ])) {
@@ -190,12 +166,18 @@ class ProfileController extends Controller
                 // $filepath='uploads/'+$fileName --> $profile->avatar = 'storage/uploads/tenfile --> đường dẫn hình trong thư mục public
                 $profile->save();
                 return back() //trả về trang trước đó
-                    ->with('success', 'Profile1 has updated.') //lưu thông báo kèm theo để hiển thị trên view
+                    ->with('success', 'Profile has updated.') //lưu thông báo kèm theo để hiển thị trên view
+                    ->with('success', $profile->full_name)
+                    ->with('success', $profile->address)
+                    ->with('success', $profile->phone)
+                    ->with('success', $profile->birthday)
                     ->with('file', $fileName);
             }
+            return back() //trả về trang trước đó
+            ->with('fail', 'Profile has failed.'); //lưu thông báo kèm theo để hiển thị trên view
         }
-        return back() //trả về trang trước đó
-            ->with('fail', 'Profile1 has updated.'); //lưu thông báo kèm theo để hiển thị trên view
+        
+        
 
 
         // $profile->avatar = $request->input('profile_avatar');
