@@ -111,7 +111,7 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total Price</th>
-                                <th></th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -131,45 +131,13 @@
                                     </td>
 
                                     <td>
-                                        {{ number_format($tag->price) . '' . '$' }}
+                                        {{ '$'.' '.number_format($tag->price) }}
                                     </td>
                                     <td>
-                                        {{ number_format($tag->quantity * $tag->price) . '' . '$' }}
+                                        {{ '$'.' '.number_format($tag->quantity * $tag->price) }}
                                         
                                     </td>
-                                    <td>
-                                        <div class="btn-group mb-1">
-                                            <button type="button"
-                                                class="btn btn-primary dropdown-toggle"
-                                                data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                Primary
-                                            </button>
-                                            
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="/ShoeManager/tags/{{ $tag->id }}">View</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" id="{{'tag'.$tag->tag_id}}" 
-                                                href="{{route('orders.removeproduct',
-                                                ['order'=>$tag->order_id,'tag'=>$tag->tag_id])}}" 
-                                                type="submit">Remove</a>
-                                                {{-- <form class="tag"
-                                                    action="/ShoeManager/tags/{{ $tag->id }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-danger btn-icon btn-sm dropdown-item"
-                                                        onclick="return confirm('Are you sure you want to delete this user?');"
-                                                        value="Delete">
-
-                                                        Delete
-                                                    </button>
-                                                </form> --}}
-                                            </div>
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 
                             @endforeach

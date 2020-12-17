@@ -125,7 +125,14 @@
                             </button>
 
                         </form><br>
-
+                        <form action="/ShoeManager/tags/{{ $tag->id }}">
+                            
+                            <button type="submit" class="btn btn-light">
+                                <span class="icon">
+                                    <i class="fas fa-chevron-left"></i>
+                                </span> Back
+                            </button>
+                        </form>
 
 
                     </div>

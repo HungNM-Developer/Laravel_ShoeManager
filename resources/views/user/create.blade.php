@@ -27,6 +27,7 @@
                         <div class="row">
                            
                             <div class="col-lg-12 mb-4">
+                                
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email</label>
                                     <input type="email" name="user_email" class="form-control" id="exampleInputEmail1"
@@ -34,6 +35,7 @@
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your
                                         email with anyone else.</small>
                                 </div>
+                                
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
                                     <input type="password" name="user_password" class="form-control" id="exampleInputPassword1"
@@ -43,6 +45,23 @@
                                     <label for="exampleInputPassword1">Name</label>
                                     <input type="text" name="user_name" class="form-control" id="exampleInputPassword1"
                                         placeholder="Nhập tên user">
+                                </div>
+                                {{-- <div class="form-group">
+                                    <label for="cc-payment" class="control-label mb-1">Role</label>
+                                    <input type="text" name="user_role" class="form-control form-control-user" id="role_id" placeholder="Role"
+                                        value="">
+                                </div> --}}
+                                
+                                
+                                <div class="form-group">
+                                    <label for="select2SinglePlaceholder">Role</label>
+                                    <select class="select2-single-placeholder form-control" name="user_role"
+                                        id="select2SinglePlaceholder">
+                                        <option value="1">viewer</option>
+                                        <option value="2">admin</option>
+                                        <option value="3">editor</option>
+                                        
+                                    </select>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-light btn-icon">

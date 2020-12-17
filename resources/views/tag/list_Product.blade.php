@@ -61,7 +61,7 @@
                                         src="{{URL::to($tag->image)}}"/>
                                     </td>
                                     <td>{{ $tag->tag }}</td>
-                                    <td>{{ number_format($tag->price).''.'$' }}</td>
+                                    <td>{{ '$'.' '.number_format($tag->price) }}</td>
                                     <td>
                                         <a href="tags/{{ $tag->id }}" class="btn btn-light btn-icon btn-sm"
                                             role="button">

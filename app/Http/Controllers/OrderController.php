@@ -188,8 +188,8 @@ class OrderController extends Controller
             ->where('order_id','=',$order)
             ->where('tag_id','=',$tag);
         if ($tag_order->delete()){
-            return redirect()->route('orders.show',['order'=>$order])
-            ->with('messages',"Remove Product ID:".$tag." from Cart ID:".$order);;
+            return redirect()->route('orders.edit',['order'=>$order])
+            ->with('messages',"Remove Product ID:".$tag." from Cart ID:".$order);
         }
         //
     }

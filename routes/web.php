@@ -53,10 +53,14 @@ Route::get('/', function()
 {
     return view("auth.login");
 });
+// Route::get('/register', function()
+// {
+//     return view("auth.register");
+// })->middleware(['auth','role:admin,editor']);
 
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)->middleware(['auth','role:admin']);
 
-Route::resource('profiles', ProfileController::class);
+Route::resource('profiles', ProfileController::class)->middleware(['auth','role:admin,editor']);
 
 Route::get('profile/check/{id}',[ProfileController::class,'checkAvaProfile']);
 
@@ -64,9 +68,9 @@ Route::resource('products', ProductController::class);
 
 Route::resource('articles', ArticleController::class);
 
-Route::resource('orders', OrderController::class);
+Route::resource('orders', OrderController::class)->middleware(['auth','role:editor']);
 
-Route::resource('tags', TagController::class);
+Route::resource('tags', TagController::class)->middleware(['auth','role:editor']);
 
 Route::post('/orders/filter', [OrderController::class, 'filter'])->name('orders.filter');
 

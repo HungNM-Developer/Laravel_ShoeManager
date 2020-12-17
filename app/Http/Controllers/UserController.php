@@ -53,19 +53,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $user = new User();
-        $user->email = $request->input('user_email');
-        $user->password = $request->input('user_password');
-        $user->name = $request->input('user_name');      
-        $affected = DB::table('users')
-            ->insert([
-                'email' =>  $user->email,
-                'password' =>  $user->password,
-                'name' => $user->name,              
+        $insertuser = new User();
+        $insertuser->email = $request->input('user_email');   
+        $insertuser->password = $request->input('user_password');
+        $insertuser->name = $request->input('user_name');
+        $insertuser->role_id = $request->input('user_role');
+        $insertuser
+            ->insert([              
+                'email' =>  $insertuser->email,
+                'password' =>  $insertuser->password,
+                'name' =>  $insertuser->name,
+                'role_id' =>  $insertuser->role_id,
+                
             ]);
-            Session::put('message','Thêm user thành công');
         return redirect('/users');
+        //
+        // $user = new User();
+        // $user->email = $request->input('user_email');
+        // $user->password = $request->input('user_password');
+        // $user->name = $request->input('user_role');
+        // $user->name = $request->input('user_name');   
+        // $affected = DB::table('users')
+        //     ->insert([
+        //         'email' =>  $user->email,
+        //         'password' =>  $user->password,            
+        //         'role_id' => $user->role_id,   
+        //         'name' => $user->name,           
+        //     ]);
+        //     Session::put('message','Thêm user thành công');
+        // return redirect('/users');
     }
 
     /**
