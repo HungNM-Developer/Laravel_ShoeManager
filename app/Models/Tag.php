@@ -13,11 +13,11 @@ class Tag extends Model
         'tag','price','image','description','content'
     ];
     
-    public function articles() {
+    // public function articles() {
         
-        return $this->belongsToMany('App\Models\Article');
+    //     return $this->belongsToMany('App\Models\Article');
         
-    }
+    // }
 
     public function orders() {
         

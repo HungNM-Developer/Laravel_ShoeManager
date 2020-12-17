@@ -11,8 +11,7 @@ class Order extends Model
     protected $fillable = [
         'user_id', 'status',//các thuộc tính
     ];
-    protected $primaryKey = 'id';
-    protected $table = 'orders';
+    
 
     public function user() {
         return $this->belongsTo('App\Models\User');
@@ -24,7 +23,7 @@ class Order extends Model
         return $this->belongsToMany('App\Models\Tag');
     }
 
-    public function tag_order() {
-        return $this->belongsToMany('App\Models\Tag_Order');
-    }
+    // public function tag_order() {
+    //     return $this->belongsToMany('App\Models\Tag_Order');
+    // }
 }

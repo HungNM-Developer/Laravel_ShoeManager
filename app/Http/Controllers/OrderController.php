@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 
-use App\Models\Tag_Order;
+use App\Models\OrderTag;
 
 use App\Models\User;
 
@@ -21,15 +21,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orderQuery = Order::query();
-        $orderQuery->orderBy("created_at","desc");
+        // $orderQuery = Order::query();
+        // $orderQuery->orderBy("created_at","desc");
 
-        $listOfOrder = $orderQuery->get();
+        // $listOfOrder = $orderQuery->get();
 
-        return view("order.show_Order",["listOfOrder"=>$listOfOrder]);
+        // return view("order.show_Order",["listOfOrder"=>$listOfOrder]);
         //
         // $orders = Order::orderBy('id','DESC')->get();
-		// return View('order.list_Order',['orders' => $orders]);
+        // return View('order.list_Order',['orders' => $orders]);
+        
+        $orders = Order::orderBy('id','DESC')->get();
+
+        return View('order.list_Order',['orders' => $orders]);
     }
 
     /**
@@ -62,7 +66,8 @@ class OrderController extends Controller
     public function show($id)
     {
         //
-        // $order = Order::query()->where('id','=', $id)->first();
+        $order = Order::find($id);
+        //$order = Order::query()->where('id','=', $id)->first();
         // return view('order.show_Order', ['order' => $order]);
 
         // $order = Order::query()->where('id','=',$id)->first();
@@ -83,7 +88,7 @@ class OrderController extends Controller
         $user = DB::table('users')->where('id', "=", $order_tag[0]->user_id)->first();
 
 
-        return view('order.show_Order', ['order_tags' => $order_tag, 'users' => $user, 'tags' => $tag]);
+        return view('order.show_Order', ['order' => $order, 'user' => $user, 'tags' => $tag]);
     }
 
     /**
@@ -95,6 +100,20 @@ class OrderController extends Controller
     public function edit($id)
     {
         //
+        $order = Order::find($id);
+        $order_tag = DB::table('orders')->leftJoin('order_tags', "orders.id" ,"=", "order_tags.order_id")
+        ->where("orders.id","=", $id)->get();
+        
+        //get name, quantity, unit price of product
+        $tag = DB::table('order_tags')->join('tags', 'order_tags.tag_id',"=", "tags.id")
+        ->where("order_tags.order_id", "=", $id)->get();
+       
+        //get info user
+        $user = DB::table('users')->where('id', "=", $order_tag[0]->user_id)->first();
+
+
+        return view('order.edit_Order', ['order' => $order, 'user' => $user, 'tags' => $tag]);
+        // return view('order.edit_Order', ['order' => $order]);
     }
 
     /**
@@ -106,7 +125,36 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // if ( $validated = $request->validate([
+            
+        //     'order->status' => 'nullable',
+            
+        // ])) {
+        //     if ($request->file()) {
+        //         $order = Order::find($id);
+        //         $order->status = $request->input('order_status');
+                
+        //         $order->save();
+        //         return back() //trả về trang trước đó
+        //             ->with('success', 'Profile has updated.'); //lưu thông báo kèm theo để hiển thị trên view
+                    
+        //     }
+        //     return back() //trả về trang trước đó
+        //     ->with('fail', 'Profile has failed.'); //lưu thông báo kèm theo để hiển thị trên view
+        // }
+        // $orderInfo = $request->all(['status']);
+
+        // $order = Order::query()->where('id','=',$id);
+        // $queryResult = $order->update($orderInfo);
+        // if ($queryResult){
+        //     return redirect()->route('orders.show',["order"=>$id]);
+        // }
         //
+        $order = Order::find($id);
+        $order->status = $request->input('order_status');
+        $order->save();
+        return back() //trả về trang trước đó
+            ->with('success', 'Article has updated.');
     }
 
     /**
@@ -118,5 +166,59 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+        $order = DB::table('orders')->where('id','=',$id);
+        $tags_order = OrderTag::query()->where('order_id','=',$id);
+        if ($order){
+            $order->delete();
+            $tags_order->delete();
+            return redirect()->route('orders.index');
+        }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $order
+     * @param  int  $tag
+     * @return \Illuminate\Http\Response
+     */
+    public function removeproduct($order,$tag)
+    {
+        $tag_order = OrderTag::query()
+            ->where('order_id','=',$order)
+            ->where('tag_id','=',$tag);
+        if ($tag_order->delete()){
+            return redirect()->route('orders.show',['order'=>$order])
+            ->with('messages',"Remove Product ID:".$tag." from Cart ID:".$order);;
+        }
+        //
+    }
+/**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function filter(Request $request)
+    {
+
+        $order = Order::query();
+        if($request->input("List_of_Status"))
+        {
+            $order->where('status', '=', $request->input('List_of_Status'));
+        }
+        
+        if($request->input("dateStart") != null && $request->input('dateEnd') != null){
+           $dateStart = $request->input('dateStart');
+           $dateEnd = $request->input('dateEnd');
+           $order->where('created_at', '>', $dateStart);
+           $order->where('updated_at', '<', $dateEnd);
+        }
+        $order = $order->get();
+       
+        // Alert::success('Filter Done', 'Click ok to continue');
+        return view('order.list_Order', ['orders' => $order]);
+    }
+
 }

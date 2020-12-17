@@ -28,7 +28,7 @@ class OrderTagFactory extends Factory
             //
             'order_id' => Order::all()->random()->id, 
             'tag_id' => Tag::all()->random()->id,
-            'quantity' => $this->faker->numberBetween(1, 100),
+            'quantity'=>$this->faker->numberBetween(3,10),
         ];
     }
 }

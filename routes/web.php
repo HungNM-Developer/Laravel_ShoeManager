@@ -31,10 +31,10 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/', function () {
-    $users = DB::table('users')->get();
-    return view('user.userlist',['users'=>$users]);
-});
+// Route::get('/', function () {
+//     $users = DB::table('users')->get();
+//     return view('user.userlist',['users'=>$users]);
+// });
 
 ///////////////////////
 Route::get('/checkfail', function (){
@@ -48,6 +48,12 @@ Route::get('checkage/{age?}', function ($age) {
 })->middleware(\App\Http\Middleware\CheckAge::class);
 
 /////////////////////////////////
+// Route::resource('/', UserController::class);
+Route::get('/', function()
+{
+    return view("auth.login");
+});
+
 Route::resource('users', UserController::class);
 
 Route::resource('profiles', ProfileController::class);
@@ -61,3 +67,17 @@ Route::resource('articles', ArticleController::class);
 Route::resource('orders', OrderController::class);
 
 Route::resource('tags', TagController::class);
+
+Route::post('/orders/filter', [OrderController::class, 'filter'])->name('orders.filter');
+
+Route::get('{order}/{tag}',[OrderController::class,'removeproduct'])
+    ->name('orders.removeproduct');
+    
+Auth::routes();
+Route::get('/home',function()
+{
+ return view('admin.dashboard');
+});
+// Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+

@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         
         \App\Models\User::factory(10)->create();
-        \App\Models\Tag::factory(10)->create();
+        \App\Models\Tag::factory(50)->create();
         // \App\Models\Tag_Order::factory(10)->create();
         \App\Models\Order::factory(10)->create();
-        \App\Models\OrderTag::factory(10)->create();
+        \App\Models\OrderTag::factory(50)->create();
         // ->each(function ($order){
         //     $ids_order = range(1, 10);
         //     shuffle($ids_order);//trộn
